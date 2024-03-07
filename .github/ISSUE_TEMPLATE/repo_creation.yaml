@@ -16,7 +16,7 @@ body:
     validations:
       required: true
   - type: dropdown
-    id: repo-template
+    id: template
     attributes:
       label: Repository Template
       description: What template you want to start from
