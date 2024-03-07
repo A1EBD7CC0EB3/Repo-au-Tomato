@@ -1,0 +1,29 @@
+name: Create Repo
+description: Create a new repo
+title: "[REPO]: "
+labels: ["repo"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Choose your repo to create
+  - type: input
+    id: name
+    attributes:
+      label: Repo name
+      description: The name of your repository, must be unique in the organization
+      placeholder: myrepo
+    validations:
+      required: true
+  - type: dropdown
+    id: repo-template
+    attributes:
+      label: Repository Template
+      description: What template you want to start from
+      options:
+        - Javascript
+        - Lua
+        - C
+      default: 0
+    validations:
+      required: true
