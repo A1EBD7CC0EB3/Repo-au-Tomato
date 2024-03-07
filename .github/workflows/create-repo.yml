@@ -1,0 +1,27 @@
+name: Create Repository
+
+on:
+  issues:
+    types: 
+      - opened
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    if: contains(github.event.issue.labels.*.name, 'repo-creation')
+    steps:
+      - uses: actions/checkout@v3
+
+      ## validate the deetz
+      - uses: stefanbuck/github-issue-parser@v3
+        id: issue-parser
+        with:
+          template-path: .github/ISSUE_TEMPLATE/task.yaml
+      
+      
+      - name: Run a multi-line script
+        run: |
+          if [ -z "${{ steps.issue-parser.outputs.issueparser_name }}" || -z "${{ steps.issue-parser.outputs.issueparser_template }}" ]; then
+            echo Bye Bye
+            exit 1
+          fi
