@@ -21,7 +21,7 @@ jobs:
       
       - name: Run a multi-line script
         run: |
-          if [ -z "${{ steps.issue-parser.outputs.issueparser_name }}" || -z "${{ steps.issue-parser.outputs.issueparser_template }}" ]; then
+          if [[ -z "${{ steps.issue-parser.outputs.issueparser_name }}" || -z "${{ steps.issue-parser.outputs.issueparser_template }}" ]]; then
             echo Bye Bye
             exit 1
           fi
