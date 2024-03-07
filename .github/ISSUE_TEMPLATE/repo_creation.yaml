@@ -1,7 +1,7 @@
 name: Create Repo
 description: Create a new repo
 title: "[REPO]: "
-labels: ["repo"]
+labels: ["repo-creation"]
 body:
   - type: markdown
     attributes:
