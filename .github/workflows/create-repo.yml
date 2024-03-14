@@ -63,4 +63,10 @@ jobs:
           # Comment back to issue & fail
           echo "failure todo"
           exit 1
-        
+
+      - name: TODO Add users/teams permissions to repo
+        if: steps.build.outcome == 'success'
+        run: |
+          # Comment back to issue & close issue. Add Github.actor as admin, add teams specified
+          echo "teams todo"
+
