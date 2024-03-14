@@ -34,6 +34,8 @@ jobs:
           echo do something
       
       - name: Create repo
+        id: createRepo
+        continue-on-error: true
         env:
           GITHUB_TOKEN: ${{ secrets.PAT }}
         run: |
@@ -47,4 +49,18 @@ jobs:
            -f name='${{ steps.issue-parser.outputs.issueparser_name }}' \
            -f description='This a generated repo' \
            -F include_all_branches=false \
-           -F private=true 
+           -F private=true
+
+      - name: Comment success
+        if: steps.build.outcome == 'success'
+        run: |
+          # Comment back to issue & close issue
+          echo "success todo"
+
+      - name: Comment failure
+        if: steps.build.outcome != 'success'
+        run: |
+          # Comment back to issue & fail
+          echo "failure todo"
+          exit 1
+        
