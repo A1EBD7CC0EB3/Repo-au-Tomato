@@ -67,7 +67,7 @@ jobs:
           GH_TOKEN: ${{ secrets.PAT }}
         run: |
           gh issue comment ${{ github.event.issue.number }} \
-            --body "The repository has been successfully created."
+            --body "The repository ${{ steps.issue-parser.outputs.issueparser_repo-name }} has been successfully created."
 
       - name: Comment failure on repo creation
         if: steps.createRepo.outcome == 'failure'
@@ -75,7 +75,7 @@ jobs:
           GH_TOKEN: ${{ secrets.PAT }}
         run: |
           gh issue comment ${{ github.event.issue.number }} \
-            --body "There was an error creating the repository. Please try again."
+            --body "There was an error creating the repository ${{ steps.issue-parser.outputs.issueparser_repo-name }}. Please try again."
 
       - name: Add user as an admin of the repository
         id: addUserAsAdmin
