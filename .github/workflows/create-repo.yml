@@ -57,7 +57,7 @@ jobs:
             -f owner='${{ env.ORG }}' \
             -f name='${{ steps.issue-parser.outputs.issueparser_repo-name }}' \
             -f description='This a generated repo' \
-            -F include_all_branches=false \
+            -F include_all_branches=true \
             -F private=true
 
       - name: Comment success on repository creation
