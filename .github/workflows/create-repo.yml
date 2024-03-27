@@ -83,7 +83,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.PAT }}
         run: |
-          gh api -X PUT /repos/${{ steps.issue-parser.outputs.issueparser_repo-name }}/collaborators/${{ github.event.issue.user.login }} -f permission=admin
+          gh api -X PUT /repos/${{ env.ORG }}/${{ steps.issue-parser.outputs.issueparser_repo-name }}/collaborators/${{ github.event.issue.user.login }} -f permission=admin
 
       - name: Comment success adding user as admin
         if: steps.addUserAsAdmin.outcome == 'success'
