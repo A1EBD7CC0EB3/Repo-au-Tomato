@@ -8,11 +8,19 @@ body:
       value: |
         Choose your repo to create
   - type: input
-    id: name
+    id: repo-name
     attributes:
       label: Repo name
       description: The name of your repository, must be unique in the organization
-      placeholder: myrepo
+      placeholder: my-awesome-repo
+    validations:
+      required: true
+  - type: input
+    id: branch-name
+    attributes:
+      label: Branch Name
+      description: Please enter the name of the default branch.
+      placeholder: main
     validations:
       required: true
   - type: dropdown
