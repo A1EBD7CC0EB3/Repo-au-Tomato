@@ -15,14 +15,14 @@ body:
       placeholder: my-awesome-repo
     validations:
       required: true
-  - type: input
-    id: branch-name
-    attributes:
-      label: Branch Name
-      description: Please enter the name of the default branch.
-      placeholder: main
-    validations:
-      required: true
+  # - type: input
+  #   id: branch-name
+  #   attributes:
+  #     label: Branch Name
+  #     description: Please enter the name of the default branch.
+  #     placeholder: main
+  #   validations:
+  #     required: true
   - type: dropdown
     id: template
     attributes:
