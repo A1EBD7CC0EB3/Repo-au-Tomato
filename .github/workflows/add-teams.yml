@@ -42,6 +42,5 @@ jobs:
             else
                 gh issue comment ${{ github.event.issue.number }} --repo ${{ github.repository }} \
                   --body "Error adding team $TEAM to the repository $REPO_NAME, check the if you are a repo admin and the team exits"
-                exit 1
             fi
         done
