@@ -27,9 +27,9 @@ jobs:
         GH_TOKEN: ${{ secrets.PAT }}
       run: |
         ARGS=$(echo '${{ github.event.comment.body }}' | awk -F'/add-teams ' '{print $2}' | tr -d '\r')
-        IFS=' ' read -ra ARG_ARRAY <<< "$ARGS"
+        ARG_ARRAY=($(echo "$ARGS"))
         REPO_NAME=${ARG_ARRAY[0]}
-        unset 'ARG_ARRAY[0]'
+        ARG_ARRAY=("${ARG_ARRAY[@]:1}")
         for TEAM in "${ARG_ARRAY[@]}"; do
           if gh api -X GET /orgs/:org/teams/$TEAM > /dev/null 2>&1; then
             gh api -X PUT /orgs/:org/teams/$TEAM/repos/$REPO_NAME -f permission=admin
