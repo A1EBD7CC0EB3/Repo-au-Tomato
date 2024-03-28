@@ -21,7 +21,7 @@ jobs:
         ARG_ARRAY=($(echo "$ARGS"))
         REPO_NAME=${ARG_ARRAY[0]}
         IS_ADMIN=$(gh api -X GET /repos/${{ env.ORG }}/$REPO_NAME/collaborators/${{ github.event.comment.user.login }}/permission --jq '.permission == "admin"')
-        echo "::set-output name=is_admin::$IS_ADMIN"
+        echo "name=is_admin::$IS_ADMIN" >> $GITHUB_OUTPUT
 
     - name: Add teams
       if: steps.checkAdmin.outputs.is_admin == 'true'
@@ -46,11 +46,11 @@ jobs:
       env:
         GH_TOKEN: ${{ secrets.PAT }}
       run: |
-        gh issue comment ${{ github.event.issue.number }} --repo ${{ env.ORG }}/${{ github.repository }} --body "Teams have been successfully added to the repository."
+        gh issue comment ${{ github.event.issue.number }} --repo ${{ github.repository }} --body "Teams have been successfully added to the repository."
 
     - name: Comment failure on adding teams
       if: steps.addTeams.outcome == 'failure'
       env:
         GH_TOKEN: ${{ secrets.PAT }}
       run: |
-        gh issue comment ${{ github.event.issue.number }} --repo ${{ env.ORG }}/${{ github.repository }} --body "There was an error adding teams to the repository make sure you have admin rights. Please try again."
+        gh issue comment ${{ github.event.issue.number }} --repo ${{ github.repository }} --body "There was an error adding teams to the repository make sure you have admin rights. Please try again."
