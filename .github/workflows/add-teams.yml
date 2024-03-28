@@ -31,11 +31,11 @@ jobs:
         REPO_NAME=${ARG_ARRAY[0]}
         ARG_ARRAY=("${ARG_ARRAY[@]:1}")
         for TEAM in "${ARG_ARRAY[@]}"; do
-          if gh api -X GET /orgs/${{ env.ORG }}/teams/$TEAM > /dev/null 2>&1; then
+        #   if gh api -X GET /orgs/${{ env.ORG }}/teams/$TEAM > /dev/null 2>&1; then
             gh api -X PUT /orgs/${{ env.ORG }}/teams/$TEAM/repos/$REPO_NAME -f permission=admin
-          else
-            echo "Team $TEAM does not exist"
-          fi
+        #   else
+        #     echo "Team $TEAM does not exist"
+        #   fi
         done
 
     - name: Comment success
