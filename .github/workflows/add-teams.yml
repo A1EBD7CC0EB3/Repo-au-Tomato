@@ -21,8 +21,8 @@ jobs:
         ARG_ARRAY=($(echo "$ARGS"))
         REPO_NAME=${ARG_ARRAY[0]}
         IS_ADMIN=$(gh api -X GET /repos/${{ env.ORG }}/$REPO_NAME/collaborators/${{ github.event.comment.user.login }}/permission --jq '.permission == "admin"')
-        echo "name=is_admin::$IS_ADMIN"
-        echo "name=is_admin::$IS_ADMIN" >> $GITHUB_OUTPUT
+        echo "is_admin=$IS_ADMIN"
+        echo "is_admin=$IS_ADMIN" >> $GITHUB_OUTPUT
 
     - name: Add teams
       if: steps.checkAdmin.outputs.is_admin == 'true'
