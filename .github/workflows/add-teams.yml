@@ -1,0 +1,49 @@
+name: Add Teams to Repository
+# /add-teams repo_name team1 team2 team3
+
+on:
+  issue_comment:
+    types: [created]
+env:
+   ORG: 'A1EBD7CC0EB3'
+
+jobs:
+  add_teams:
+    runs-on: ubuntu-latest
+    if: contains(github.event.comment.body, '/add-teams')
+    steps:
+    - name: Check if user is admin of the repository
+      id: checkAdmin
+      env:
+        GH_TOKEN: ${{ secrets.PAT }}
+      run: |
+        IS_ADMIN=$(gh api -X GET /repos/${{ github.repository }}/collaborators/${{ github.event.comment.user.login }}/permission --jq '.permission == "admin"')
+        echo "::set-output name=is_admin::$IS_ADMIN"
+
+    - name: Add teams
+      if: steps.checkAdmin.outputs.is_admin == 'true'
+      id: addTeams
+      env:
+        GH_TOKEN: ${{ secrets.PAT }}
+      run: |
+        ARGS=$(echo '${{ github.event.comment.body }}' | grep -oP '/add-teams\s*\K\S+')
+        IFS=' ' read -ra ARG_ARRAY <<< "$ARGS"
+        REPO_NAME=${ARG_ARRAY[0]}
+        unset 'ARG_ARRAY[0]'
+        for TEAM in "${ARG_ARRAY[@]}"; do
+          gh api -X PUT /orgs/${{ env.ORG }}/teams/$TEAM/repos/$REPO_NAME -f permission=admin
+        done
+
+    - name: Comment success
+      if: success()
+      env:
+        GH_TOKEN: ${{ secrets.PAT }}
+      run: |
+        gh issue comment ${{ github.event.issue.number }} --body "Teams have been successfully added to the repository."
+
+    - name: Comment failure
+      if: failure()
+      env:
+        GH_TOKEN: ${{ secrets.PAT }}
+      run: |
+        gh issue comment ${{ github.event.issue.number }} --body "There was an error adding teams to the repository make sure you have admin rights. Please try again."
