@@ -29,6 +29,7 @@ jobs:
       id: addTeams
       env:
         GH_TOKEN: ${{ secrets.PAT }}
+      continue-on-error: true
       run: |
         ARGS=$(echo '${{ github.event.comment.body }}' | awk -F'/add-teams ' '{print $2}' | tr -d '\r')
         ARG_ARRAY=($(echo "$ARGS"))
@@ -41,5 +42,6 @@ jobs:
             else
                 gh issue comment ${{ github.event.issue.number }} --repo ${{ github.repository }} \
                   --body "Error adding team $TEAM to the repository $REPO_NAME, check the if you are a repo admin and the team exits"
+                exit 1
             fi
         done
