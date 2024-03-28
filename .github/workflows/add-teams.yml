@@ -46,7 +46,7 @@ jobs:
         gh issue comment ${{ github.event.issue.number }} --repo ${{ github.repository }} --body "Teams have been successfully added to the repository."
 
     - name: Comment failure on adding teams
-      if: steps.addTeams.outcome == 'failure'
+      if: steps.addTeams.outcome != 'success'
       env:
         GH_TOKEN: ${{ secrets.PAT }}
       run: |
