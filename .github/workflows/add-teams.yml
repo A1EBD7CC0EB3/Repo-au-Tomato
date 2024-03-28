@@ -39,6 +39,7 @@ jobs:
             if [ "$?" -eq 0 ]; then
                 gh issue comment ${{ github.event.issue.number }} --repo ${{ github.repository }} --body "Team $TEAM added to the repository $REPO_NAME successfully"
             else
-                gh issue comment ${{ github.event.issue.number }} --repo ${{ github.repository }} --body "Error adding team $TEAM to the repository $REPO_NAME"
+                gh issue comment ${{ github.event.issue.number }} --repo ${{ github.repository }} \
+                  --body "Error adding team $TEAM to the repository $REPO_NAME, check the if you are a repo admin and the team exits"
             fi
         done
