@@ -20,7 +20,7 @@ jobs:
         ARGS=$(echo '${{ github.event.comment.body }}' | awk -F'/add-teams ' '{print $2}' | tr -d '\r')
         ARG_ARRAY=($(echo "$ARGS"))
         REPO_NAME=${ARG_ARRAY[0]}
-        IS_ADMIN=$(gh api -X GET /repos/$REPO_NAME/collaborators/${{ github.event.comment.user.login }}/permission --jq '.permission == "admin"')
+        IS_ADMIN=$(gh api -X GET /repos/${{ env.ORG }}/$REPO_NAME/collaborators/${{ github.event.comment.user.login }}/permission --jq '.permission == "admin"')
         echo "::set-output name=is_admin::$IS_ADMIN"
 
     - name: Add teams
