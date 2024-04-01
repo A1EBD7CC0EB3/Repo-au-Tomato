@@ -42,7 +42,6 @@ jobs:
         GH_TOKEN: ${{ secrets.PAT }}
       continue-on-error: true
       run: |
-        set -e
         ARGS=$(echo '${{ github.event.comment.body }}' | awk -F'/add-teams ' '{print $2}' | tr -d '\r')
         ARG_ARRAY=($(echo "$ARGS"))
         REPO_NAME=${ARG_ARRAY[0]}
@@ -52,7 +51,7 @@ jobs:
         for TEAM in "${ARG_ARRAY[@]}"; do
             echo "gh api -X PUT /orgs/${{ env.ORG }}/teams/$TEAM/repos/${{ env.ORG }}/$REPO_NAME -f permission=admin"
             # gh api -X PUT /orgs/${{ env.ORG }}/teams/$TEAM/repos/${{ env.ORG }}/$REPO_NAME -f permission=admin || echo "$TEAM=$?" >> $GITHUB_OUTPUT
-            gh api -X PUT /orgs/${{ env.ORG }}/teams/$TEAM/repos/${{ env.ORG }}/$REPO_NAME -f permission=admin
+            gh api -X PUT /orgs/${{ env.ORG }}/teams/$TEAM/repos/${{ env.ORG }}/$REPO_NAME -f permission=admin || continue
             echo "TEAM ADD STATUS=$?"
         done
 
