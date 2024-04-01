@@ -35,7 +35,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.PAT }}
         run: |
-          if gh api /repos/${{ env.ORG }}/${{ steps.issue-parser.outputs.issueparser_repo-name }} > /dev/null 2>&1; then
+          if gh api /repos/${{ github.repository_owner }}/${{ steps.issue-parser.outputs.issueparser_repo-name }} > /dev/null 2>&1; then
             echo "::set-output name=exists::true"
           else
             echo "::set-output name=exists::false"
@@ -54,7 +54,7 @@ jobs:
             -H "Accept: application/vnd.github+json" \
             -H "X-GitHub-Api-Version: 2022-11-28" \
             /repos/${{ steps.issue-parser.outputs.issueparser_template }}/generate \
-            -f owner='${{ env.ORG }}' \
+            -f owner='${{ github.repository_owner }}' \
             -f name='${{ steps.issue-parser.outputs.issueparser_repo-name }}' \
             -f description='This a generated repo' \
             -F include_all_branches=true \
@@ -82,7 +82,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.PAT }}
         run: |
-          gh api -X PUT /repos/${{ env.ORG }}/${{ steps.issue-parser.outputs.issueparser_repo-name }}/collaborators/${{ github.event.issue.user.login }} -f permission=admin
+          gh api -X PUT /repos/${{ github.repository_owner }}/${{ steps.issue-parser.outputs.issueparser_repo-name }}/collaborators/${{ github.event.issue.user.login }} -f permission=admin
 
       - name: Comment success adding user as admin
         if: steps.addUserAsAdmin.outcome == 'success' && steps.checkRepo.outputs.exists == 'false'

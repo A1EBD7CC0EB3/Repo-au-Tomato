@@ -20,7 +20,7 @@ jobs:
         ARGS=$(echo '${{ github.event.comment.body }}' | awk -F'/add-teams ' '{print $2}' | tr -d '\r')
         ARG_ARRAY=($(echo "$ARGS"))
         REPO_NAME=${ARG_ARRAY[0]}
-        IS_ADMIN=$(gh api -X GET /repos/${{ env.ORG }}/$REPO_NAME/collaborators/${{ github.event.comment.user.login }}/permission --jq '.permission == "admin"')
+        IS_ADMIN=$(gh api -X GET /repos/${{ github.repository_owner }}/$REPO_NAME/collaborators/${{ github.event.comment.user.login }}/permission --jq '.permission == "admin"')
         echo "is_admin=$IS_ADMIN"
         echo "is_admin=$IS_ADMIN" >> $GITHUB_OUTPUT
 
@@ -49,7 +49,7 @@ jobs:
         ARG_ARRAY=("${ARG_ARRAY[@]:1}")
         echo "Teams to add: ${ARG_ARRAY[@]}"
         for TEAM in "${ARG_ARRAY[@]}"; do
-            gh api -X PUT /orgs/${{ env.ORG }}/teams/$TEAM/repos/${{ env.ORG }}/$REPO_NAME -f permission=admin
+            gh api -X PUT /orgs/${{ github.repository_owner }}/teams/$TEAM/repos/${{ github.repository_owner }}/$REPO_NAME -f permission=admin
             if [ $? -eq 0 ]; then
               gh issue comment ${{ github.event.issue.number }} --repo ${{ github.repository }} --body "Team $TEAM added to the repository $REPO_NAME successfully"
             else
