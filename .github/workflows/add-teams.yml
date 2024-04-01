@@ -49,31 +49,10 @@ jobs:
         ARG_ARRAY=("${ARG_ARRAY[@]:1}")
         echo "Teams to add: ${ARG_ARRAY[@]}"
         for TEAM in "${ARG_ARRAY[@]}"; do
-            echo "gh api -X PUT /orgs/${{ env.ORG }}/teams/$TEAM/repos/${{ env.ORG }}/$REPO_NAME -f permission=admin"
-            # gh api -X PUT /orgs/${{ env.ORG }}/teams/$TEAM/repos/${{ env.ORG }}/$REPO_NAME -f permission=admin || echo "$TEAM=$?" >> $GITHUB_OUTPUT
-            OUTPUT=$( gh api -X PUT /orgs/${{ env.ORG }}/teams/$TEAM/repos/${{ env.ORG }}/$REPO_NAME -f permission=admin 2>&1 )
-            echo "$OUTPUT"
+            gh api -X PUT /orgs/${{ env.ORG }}/teams/$TEAM/repos/${{ env.ORG }}/$REPO_NAME -f permission=admin
+            if [ $? -eq 0 ]; then
+              gh issue comment ${{ github.event.issue.number }} --repo ${{ github.repository }} --body "Team $TEAM added to the repository $REPO_NAME successfully"
+            else
+              gh issue comment ${{ github.event.issue.number }} --repo ${{ github.repository }} --body "Error adding team $TEAM to the repository $REPO_NAME, check the if you are a repo admin and the team exists"
+            fi
         done
-
-    # - name: Create comment on issue
-    #   if: steps.checkAdmin.outputs.is_admin == 'true'
-    #   id: createCommentOnAddTeams
-    #   env:
-    #       GH_TOKEN: ${{ secrets.PAT }}
-
-    #   continue-on-error: true
-    #   run: |
-    #     ARGS=$(echo '${{ github.event.comment.body }}' | awk -F'/add-teams ' '{print $2}' | tr -d '\r')
-    #     ARG_ARRAY=($(echo "$ARGS"))
-    #     REPO_NAME=${ARG_ARRAY[0]}
-    #     echo "${{ fromJSON(steps.addTeams.outputs) }}"
-        # for TEAM in $GITHUB_OUTPUT; do
-            # eval STATUS=\$$TEAM
-            # echo "Status for team $TEAM: $STATUS"
-            # if [ "$STATUS" -eq 0 ]; then
-            #   gh issue comment ${{ github.event.issue.number }} --repo ${{ github.repository }} --body "Team $TEAM added to the repository $REPO_NAME successfully"
-            # else
-            #   gh issue comment ${{ github.event.issue.number }} --repo ${{ github.repository }} \
-            #     --body "Error adding team $TEAM to the repository $REPO_NAME, check the if you are a repo admin and the team exists"
-            # fi
-        # done
