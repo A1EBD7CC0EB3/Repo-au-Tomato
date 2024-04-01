@@ -37,12 +37,12 @@ jobs:
         echo "Adding teams to the repository $REPO_NAME"
         ARG_ARRAY=("${ARG_ARRAY[@]:1}")
         echo "Teams to add: ${ARG_ARRAY[@]}"
-        # for TEAM in "${ARG_ARRAY[@]}"; do
-        #     gh api -X PUT /orgs/${{ env.ORG }}/teams/$TEAM/repos/${{ env.ORG }}/$REPO_NAME -f permission=admin
-        #     if [ "$?" -eq 0 ]; then
-        #         gh issue comment ${{ github.event.issue.number }} --repo ${{ github.repository }} --body "Team $TEAM added to the repository $REPO_NAME successfully"
-        #     else
-        #         gh issue comment ${{ github.event.issue.number }} --repo ${{ github.repository }} \
-        #           --body "Error adding team $TEAM to the repository $REPO_NAME, check the if you are a repo admin and the team exists"
-        #     fi
-        # done
+        for TEAM in "${ARG_ARRAY[@]}"; do
+            echo "gh api -X PUT /orgs/${{ env.ORG }}/teams/$TEAM/repos/${{ env.ORG }}/$REPO_NAME -f permission=admin"
+            # if [ "$?" -eq 0 ]; then
+            #     gh issue comment ${{ github.event.issue.number }} --repo ${{ github.repository }} --body "Team $TEAM added to the repository $REPO_NAME successfully"
+            # else
+            #     gh issue comment ${{ github.event.issue.number }} --repo ${{ github.repository }} \
+            #       --body "Error adding team $TEAM to the repository $REPO_NAME, check the if you are a repo admin and the team exists"
+            # fi
+        done
