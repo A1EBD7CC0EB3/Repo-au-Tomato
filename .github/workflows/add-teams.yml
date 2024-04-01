@@ -41,6 +41,7 @@ jobs:
       env:
         GH_TOKEN: ${{ secrets.PAT }}
       continue-on-error: true
+      shell: bash {0}
       run: |
         ARGS=$(echo '${{ github.event.comment.body }}' | awk -F'/add-teams ' '{print $2}' | tr -d '\r')
         ARG_ARRAY=($(echo "$ARGS"))
@@ -50,21 +51,22 @@ jobs:
         echo "Teams to add: ${ARG_ARRAY[@]}"
         for TEAM in "${ARG_ARRAY[@]}"; do
             echo "gh api -X PUT /orgs/${{ env.ORG }}/teams/$TEAM/repos/${{ env.ORG }}/$REPO_NAME -f permission=admin"
-            gh api -X PUT /orgs/${{ env.ORG }}/teams/$TEAM/repos/${{ env.ORG }}/$REPO_NAME -f permission=admin || echo "$TEAM=$?" >> $GITHUB_OUTPUT
+            # gh api -X PUT /orgs/${{ env.ORG }}/teams/$TEAM/repos/${{ env.ORG }}/$REPO_NAME -f permission=admin || echo "$TEAM=$?" >> $GITHUB_OUTPUT
+            gh api -X PUT /orgs/${{ env.ORG }}/teams/$TEAM/repos/${{ env.ORG }}/$REPO_NAME -f permission=admin
         done
 
-    - name: Create comment on issue
-      if: steps.checkAdmin.outputs.is_admin == 'true'
-      id: createCommentOnAddTeams
-      env:
-          GH_TOKEN: ${{ secrets.PAT }}
+    # - name: Create comment on issue
+    #   if: steps.checkAdmin.outputs.is_admin == 'true'
+    #   id: createCommentOnAddTeams
+    #   env:
+    #       GH_TOKEN: ${{ secrets.PAT }}
 
-      continue-on-error: true
-      run: |
-        ARGS=$(echo '${{ github.event.comment.body }}' | awk -F'/add-teams ' '{print $2}' | tr -d '\r')
-        ARG_ARRAY=($(echo "$ARGS"))
-        REPO_NAME=${ARG_ARRAY[0]}
-        echo "${{ fromJSON(steps.addTeams.outputs) }}"
+    #   continue-on-error: true
+    #   run: |
+    #     ARGS=$(echo '${{ github.event.comment.body }}' | awk -F'/add-teams ' '{print $2}' | tr -d '\r')
+    #     ARG_ARRAY=($(echo "$ARGS"))
+    #     REPO_NAME=${ARG_ARRAY[0]}
+    #     echo "${{ fromJSON(steps.addTeams.outputs) }}"
         # for TEAM in $GITHUB_OUTPUT; do
             # eval STATUS=\$$TEAM
             # echo "Status for team $TEAM: $STATUS"
