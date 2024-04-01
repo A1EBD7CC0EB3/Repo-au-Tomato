@@ -63,13 +63,14 @@ jobs:
         ARGS=$(echo '${{ github.event.comment.body }}' | awk -F'/add-teams ' '{print $2}' | tr -d '\r')
         ARG_ARRAY=($(echo "$ARGS"))
         REPO_NAME=${ARG_ARRAY[0]}
-        for TEAM in $GITHUB_OUTPUT; do
-            eval STATUS=\$$TEAM
-            echo "Status for team $TEAM: $STATUS"
+        echo "Github output: $GITHUB_OUTPUT"
+        # for TEAM in $GITHUB_OUTPUT; do
+            # eval STATUS=\$$TEAM
+            # echo "Status for team $TEAM: $STATUS"
             # if [ "$STATUS" -eq 0 ]; then
             #   gh issue comment ${{ github.event.issue.number }} --repo ${{ github.repository }} --body "Team $TEAM added to the repository $REPO_NAME successfully"
             # else
             #   gh issue comment ${{ github.event.issue.number }} --repo ${{ github.repository }} \
             #     --body "Error adding team $TEAM to the repository $REPO_NAME, check the if you are a repo admin and the team exists"
             # fi
-        done
+        # done
