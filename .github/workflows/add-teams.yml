@@ -53,6 +53,7 @@ jobs:
             echo "gh api -X PUT /orgs/${{ env.ORG }}/teams/$TEAM/repos/${{ env.ORG }}/$REPO_NAME -f permission=admin"
             # gh api -X PUT /orgs/${{ env.ORG }}/teams/$TEAM/repos/${{ env.ORG }}/$REPO_NAME -f permission=admin || echo "$TEAM=$?" >> $GITHUB_OUTPUT
             gh api -X PUT /orgs/${{ env.ORG }}/teams/$TEAM/repos/${{ env.ORG }}/$REPO_NAME -f permission=admin
+            echo "TEAM ADD STATUS=$?"
         done
 
     # - name: Create comment on issue
