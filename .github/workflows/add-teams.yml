@@ -51,7 +51,7 @@ jobs:
         for TEAM in "${ARG_ARRAY[@]}"; do
             echo "gh api -X PUT /orgs/${{ env.ORG }}/teams/$TEAM/repos/${{ env.ORG }}/$REPO_NAME -f permission=admin"
             # gh api -X PUT /orgs/${{ env.ORG }}/teams/$TEAM/repos/${{ env.ORG }}/$REPO_NAME -f permission=admin || echo "$TEAM=$?" >> $GITHUB_OUTPUT
-            OUTPUT=$( { gh api -X PUT /orgs/${{ env.ORG }}/teams/$TEAM/repos/${{ env.ORG }}/$REPO_NAME -f permission=admin } 2>&1 )
+            OUTPUT=$( gh api -X PUT /orgs/${{ env.ORG }}/teams/$TEAM/repos/${{ env.ORG }}/$REPO_NAME -f permission=admin 2>&1 )
             echo "$OUTPUT"
         done
 
