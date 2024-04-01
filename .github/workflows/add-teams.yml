@@ -63,7 +63,7 @@ jobs:
         ARGS=$(echo '${{ github.event.comment.body }}' | awk -F'/add-teams ' '{print $2}' | tr -d '\r')
         ARG_ARRAY=($(echo "$ARGS"))
         REPO_NAME=${ARG_ARRAY[0]}
-        echo "Output [${{steps.addTeams.outputs.GITHUB_OUTPUT}}]"
+        echo "Output [${{steps.addTeams.outputs}}]"
         # for TEAM in $GITHUB_OUTPUT; do
             # eval STATUS=\$$TEAM
             # echo "Status for team $TEAM: $STATUS"
