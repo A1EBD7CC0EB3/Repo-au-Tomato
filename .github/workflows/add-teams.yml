@@ -34,26 +34,15 @@ jobs:
         ARGS=$(echo '${{ github.event.comment.body }}' | awk -F'/add-teams ' '{print $2}' | tr -d '\r')
         ARG_ARRAY=($(echo "$ARGS"))
         REPO_NAME=${ARG_ARRAY[0]}
+        echo "Adding teams to the repository $REPO_NAME"
         ARG_ARRAY=("${ARG_ARRAY[@]:1}")
-        for TEAM in "${ARG_ARRAY[@]}"; do
-            gh api -X PUT /orgs/${{ env.ORG }}/teams/$TEAM/repos/${{ env.ORG }}/$REPO_NAME -f permission=admin
-            echo "$TEAM=$?" >> $GITHUB_OUTPUT
-            echo "$TEAM=$?"
-        done
-    
-    # - name: Add a comment to the issue
-    #   env:
-    #     GH_TOKEN: ${{ secrets.PAT }}
-    #   run: |
-    #     ARGS=$(echo '${{ github.event.comment.body }}' | awk -F'/add-teams ' '{print $2}' | tr -d '\r')
-    #     ARG_ARRAY=($(echo "$ARGS"))
-    #     REPO_NAME=${ARG_ARRAY[0]}
-    #     for TEAM in $GITHUB_OUTPUT; do
-    #       eval STATUS=\$$TEAM
-    #       if [ "$STATUS" -eq 0 ]; then
-    #         gh issue comment ${{ github.event.issue.number }} --repo ${{ github.repository }} --body "Team $TEAM added to the repository $REPO_NAME successfully"
-    #       else
-    #         gh issue comment ${{ github.event.issue.number }} --repo ${{ github.repository }} \
-    #           --body "Error adding team $TEAM to the repository $REPO_NAME, check the if you are a repo admin and the team exists"
-    #       fi
-    #     done
+        echo "Teams to add: ${ARG_ARRAY[@]}"
+        # for TEAM in "${ARG_ARRAY[@]}"; do
+        #     gh api -X PUT /orgs/${{ env.ORG }}/teams/$TEAM/repos/${{ env.ORG }}/$REPO_NAME -f permission=admin
+        #     if [ "$?" -eq 0 ]; then
+        #         gh issue comment ${{ github.event.issue.number }} --repo ${{ github.repository }} --body "Team $TEAM added to the repository $REPO_NAME successfully"
+        #     else
+        #         gh issue comment ${{ github.event.issue.number }} --repo ${{ github.repository }} \
+        #           --body "Error adding team $TEAM to the repository $REPO_NAME, check the if you are a repo admin and the team exists"
+        #     fi
+        # done
