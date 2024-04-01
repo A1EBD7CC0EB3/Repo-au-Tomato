@@ -4,8 +4,6 @@ on:
   issues:
     types: 
       - opened
-env:
-  ORG: 'A1EBD7CC0EB3'
 jobs:
   build:
     runs-on: ubuntu-latest

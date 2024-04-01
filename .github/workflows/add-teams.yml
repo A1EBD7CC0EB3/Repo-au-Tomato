@@ -4,8 +4,6 @@ name: Add Teams to Repository
 on:
   issue_comment:
     types: [created]
-env:
-   ORG: 'A1EBD7CC0EB3'
 
 jobs:
   add_teams:
