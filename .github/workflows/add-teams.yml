@@ -40,6 +40,7 @@ jobs:
         for TEAM in "${ARG_ARRAY[@]}"; do
             echo "gh api -X PUT /orgs/${{ env.ORG }}/teams/$TEAM/repos/${{ env.ORG }}/$REPO_NAME -f permission=admin"
             gh api -X PUT /orgs/${{ env.ORG }}/teams/$TEAM/repos/${{ env.ORG }}/$REPO_NAME -f permission=admin
+            echo "The result of the command is $?"
             # if [ "$?" -eq 0 ]; then
             #     gh issue comment ${{ github.event.issue.number }} --repo ${{ github.repository }} --body "Team $TEAM added to the repository $REPO_NAME successfully"
             # else
