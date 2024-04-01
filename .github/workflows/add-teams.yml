@@ -58,12 +58,13 @@ jobs:
       id: createCommentOnAddTeams
       env:
           GH_TOKEN: ${{ secrets.PAT }}
+
       continue-on-error: true
       run: |
         ARGS=$(echo '${{ github.event.comment.body }}' | awk -F'/add-teams ' '{print $2}' | tr -d '\r')
         ARG_ARRAY=($(echo "$ARGS"))
         REPO_NAME=${ARG_ARRAY[0]}
-        echo "Output ${{ toJSON(steps.addTeams.outputs) }}"
+        echo "${{ fromJSON(steps.addTeams.outputs) }}"
         # for TEAM in $GITHUB_OUTPUT; do
             # eval STATUS=\$$TEAM
             # echo "Status for team $TEAM: $STATUS"
