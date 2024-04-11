@@ -32,9 +32,9 @@ jobs:
         # continue-on-error: true
         uses: continuous-devops/create-repo@main
         with:
-          repo_name: ${{ steps.issue-parser.outputs.issueparser_repo-name }}
-          repo_template: ${{ steps.issue-parser.outputs.issueparser_template }}
-          app_id: ${{ vars.APP_ID }}
-          app_private_key: ${{ secrets.APP_PRIVATE_KEY }}
-          app_installation_id: ${{ vars.APP_INSTALLATION_ID }}
-          api_url: 'https://api.github.com'
+            repo_name: ${{ steps.issue-parser.outputs.issueparser_repo-name }}
+            repo_template: ${{ steps.issue-parser.outputs.issueparser_template }}
+            app_id: ${{ vars.APP_ID }}
+            app_private_key: ${{ secrets.APP_PRIVATE_KEY }}
+            app_installation_id: ${{ vars.APP_INSTALLATION_ID }}
+            api_url: 'https://api.github.com'
