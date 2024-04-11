@@ -11,7 +11,7 @@
 
 **Change the following for your environment**
 - Replace `<ORG>` below with your githuib.com organization
-- Replace `<REPO_TEMPLATE_NAME> below with the repository that is the template
+- Replace `<REPO_TEMPLATE_NAME>` below with the repository that is the template
 
 ```
 name: Create Repo
