@@ -6,16 +6,18 @@
 
 A PAT (classic) that has all repository permissions
 
+<img title="generate-new-classic-token" alt="generate-new-classic-token" src="/imgs/generate-new-classic-token.png">
+<img title="repo-scope-token" alt="repo-scope-token" src="/imgs/repo-scope-token.png">
+
 ## Setup of an actions environment variable
 
 PAT with full repository scope permissions
 
-<img title="generate-new-classic-token" alt="generate-new-classic-token" src="/imgs/generate-new-classic-token.png">
-<img title="repo-scope-token" alt="repo-scope-token" src="/imgs/repo-scope-token.png">
+<img title="actions-secrets" alt="actions-secrets" src="/imgs/actions-secrets.png">
 
 ## Organization settings to prevent repository creation
 
-```
+```shell
 Org settings > Member privileges > Repository Creation > Uncheck all boxes and save
 OR enterprise policies > repositories > Repository creation > Disabled
 ```
