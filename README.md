@@ -166,7 +166,7 @@ jobs:
 
 `.github/workflows/add-teams.yml`
 
-Usage: comment in an issue with the repo-create label `/add-teams repo_name team1 team2 team3` 
+Usage: comment in an issue with the "repo-creation" label `/add-teams repo_name team1 team2 team3` 
 
 ```
 name: Add Teams to Repository
