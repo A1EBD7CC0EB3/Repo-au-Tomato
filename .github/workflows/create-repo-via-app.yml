@@ -38,3 +38,4 @@ jobs:
             app_private_key: ${{ secrets.APP_PRIVATE_KEY }}
             app_installation_id: ${{ vars.APP_INSTALLATION_ID }}
             api_url: 'https://api.github.com'
+            is_debug: 'true'
