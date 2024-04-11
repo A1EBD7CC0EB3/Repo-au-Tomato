@@ -1,19 +1,19 @@
 # Repo-au-Tomato
 
-# create-repo POC
+## create-repo POC
 
-## Prerequisites 
+### Prerequisites
 
 A PAT (classic) that has all repository permissions
 
 <img title="generate-new-classic-token" alt="generate-new-classic-token" src="/imgs/generate-new-classic-token.png">
 <img title="repo-scope-token" alt="repo-scope-token" src="/imgs/repo-scope-token.png">
 
-## Setup of an actions environment variable
+### Setup of an actions environment variable
 
 PAT with full repository scope permissions
 
-## Organization settings to prevent repository creation
+### Organization settings to prevent repository creation
 
 ```shell
 Repository Settings > Actions > Actions Secrets and Variables
@@ -26,7 +26,11 @@ Organization Settings > Member privileges > Repository Creation > Uncheck all bo
 OR enterprise policies > repositories > Repository creation > Disabled
 ```
 
-## Repo structure
+### Repository `repo-creation` label
+
+<img title="repo-creation-label" alt="repo-creation-label" src="/imgs/repo-creation-label.png">
+
+### Repo structure
 
 ```shell
 .github
@@ -34,7 +38,7 @@ OR enterprise policies > repositories > Repository creation > Disabled
 .github/workflows/
 ```
 
-## Issue template
+### Issue template
 
 `.github/ISSUE_TEMPLATE/repo_creation.yaml`
 
@@ -72,7 +76,7 @@ body:
       required: true
 ```
 
-## GitHub Action to create a repository
+### GitHub Action to create a repository
 
 `.github/workflows/create-repo.yml`
 
@@ -191,7 +195,7 @@ jobs:
           gh issue close ${{ github.event.issue.number }}
   ```
 
-## GitHub Action to add a team to a repository
+### GitHub Action to add a team to a repository
 
 `.github/workflows/add-teams.yml`
 
