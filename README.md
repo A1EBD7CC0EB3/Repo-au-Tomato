@@ -13,9 +13,13 @@ A PAT (classic) that has all repository permissions
 
 PAT with full repository scope permissions
 
-<img title="actions-secrets" alt="actions-secrets" src="/imgs/actions-secrets.png">
-
 ## Organization settings to prevent repository creation
+
+```shell
+Repository settings > actions > secrets/variables
+```
+
+<img title="actions-secrets" alt="actions-secrets" src="/imgs/actions-secrets.png">
 
 ```shell
 Org settings > Member privileges > Repository Creation > Uncheck all boxes and save
