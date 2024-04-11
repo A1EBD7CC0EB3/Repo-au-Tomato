@@ -2,6 +2,14 @@
 
 # create-repo POC
 
+## Prerequisites 
+
+A PAT (classic) that has all repository permissions
+
+## Setup of an actions environment variable
+
+PAT with full repository scope permissions
+
 ## Organization settings to prevent repository creation
 
 ```
