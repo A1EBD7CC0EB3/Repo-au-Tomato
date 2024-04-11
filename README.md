@@ -28,6 +28,10 @@ OR enterprise policies > repositories > Repository creation > Disabled
 
 ### Repository `repo-creation` label
 
+```shell
+Repository Issues > Labels
+```
+
 <img title="repo-creation-label" alt="repo-creation-label" src="/imgs/repo-creation-label.png">
 
 ### Repo structure
