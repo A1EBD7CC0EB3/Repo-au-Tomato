@@ -1,4 +1,4 @@
-name: Create Repository
+name: Create Repository via an App
 
 on:
   issues:
