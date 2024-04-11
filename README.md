@@ -2,6 +2,13 @@
 
 # create-repo POC
 
+## Organization settings to prevent repository creation
+
+```
+Org settings > Member privileges > Repository Creation > Uncheck all boxes and save
+OR enterprise policies > repositories > Repository creation > Disabled
+```
+
 ## Repo structure
 
 ```
