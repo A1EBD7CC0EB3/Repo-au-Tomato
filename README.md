@@ -16,13 +16,13 @@ PAT with full repository scope permissions
 ## Organization settings to prevent repository creation
 
 ```shell
-Repository settings > actions > secrets/variables
+Repository Settings > Actions > Actions Secrets and Variables
 ```
 
 <img title="actions-secrets" alt="actions-secrets" src="/imgs/actions-secrets.png">
 
 ```shell
-Org settings > Member privileges > Repository Creation > Uncheck all boxes and save
+Organization Settings > Member privileges > Repository Creation > Uncheck all boxes and save
 OR enterprise policies > repositories > Repository creation > Disabled
 ```
 
