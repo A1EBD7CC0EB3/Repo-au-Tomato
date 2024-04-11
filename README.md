@@ -2,8 +2,13 @@
 
 # create-repo POC
 
-`.github/ISSUE_TEMPLATE`
-`.github/workflows/`
+## Repo structure
+
+```
+.github
+.github/ISSUE_TEMPLATE
+.github/workflows/
+```
 
 ## Issue template
 
