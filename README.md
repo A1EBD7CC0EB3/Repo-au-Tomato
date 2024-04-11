@@ -10,6 +10,9 @@ A PAT (classic) that has all repository permissions
 
 PAT with full repository scope permissions
 
+<img title="generate-new-classic-token" alt="generate-new-classic-token" src="/imgs/generate-new-classic-token.png">
+<img title="repo-scope-token" alt="repo-scope-token" src="/imgs/repo-scope-token.png">
+
 ## Organization settings to prevent repository creation
 
 ```
@@ -19,7 +22,7 @@ OR enterprise policies > repositories > Repository creation > Disabled
 
 ## Repo structure
 
-```
+```shell
 .github
 .github/ISSUE_TEMPLATE
 .github/workflows/
@@ -33,7 +36,7 @@ OR enterprise policies > repositories > Repository creation > Disabled
 - Replace `<ORG>` below with your githuib.com organization
 - Replace `<REPO_TEMPLATE_NAME>` below with the repository that is the template
 
-```
+```yaml
 name: Create Repo
 description: Create a new repo
 title: "[REPO]: "
@@ -67,7 +70,7 @@ body:
 
 `.github/workflows/create-repo.yml`
 
-```
+```yaml
 name: Create Repository
 
 on:
@@ -188,7 +191,7 @@ jobs:
 
 Usage: comment in an issue with the "repo-creation" label `/add-teams repo_name team1 team2 team3` 
 
-```
+```yaml
 name: Add Teams to Repository
 # /add-teams repo_name team1 team2 team3
 
