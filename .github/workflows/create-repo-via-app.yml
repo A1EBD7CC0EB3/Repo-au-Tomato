@@ -27,9 +27,9 @@ jobs:
           fi
           ## Todo write this to the issue, maybe allow a /rerun command
 
-      - name: Create the repository
-        id: createRepo
-        uses: continuous-devops/create-repo@main
+      - name: Create the repository from a repository template
+        id: createRepoFromTemplate
+        uses: continuous-devops/create-repo-from-template@main
         with:
             repo_name: ${{ steps.issue-parser.outputs.issueparser_repo-name }}
             repo_template: ${{ steps.issue-parser.outputs.issueparser_template }}
