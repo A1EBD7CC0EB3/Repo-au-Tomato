@@ -21,7 +21,7 @@ body:
       label: Repository Template
       description: What template you want to start from
       options:
-        - A1EBD7CC0EB3/js-template
+        - js-template
       default: 0
     validations:
       required: true
