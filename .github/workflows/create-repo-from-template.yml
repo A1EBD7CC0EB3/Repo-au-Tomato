@@ -1,4 +1,4 @@
-name: Create Repository via an App
+name: Create Repository from a Template
 
 on:
   issues:
