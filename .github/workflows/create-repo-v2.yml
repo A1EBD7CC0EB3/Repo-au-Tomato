@@ -104,11 +104,12 @@ jobs:
       - name: Report successful repo creation
         uses: actions/github-script@v6
         if: ${{ success() }}
-        script: |
-          const body = `:white_check_mark: **Repo created successfully!** [View workflow run for details](${context.payload.repository.html_url}/actions/runs/${context.runId})`
-          github.rest.issues.createComment({
-            issue_number: context.issue.number,
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            body
-          })
+        with:
+          script: |
+            const body = `:white_check_mark: **Repo created successfully!** [View workflow run for details](${context.payload.repository.html_url}/actions/runs/${context.runId})`
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body
+            })
