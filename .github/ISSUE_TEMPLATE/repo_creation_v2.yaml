@@ -9,24 +9,28 @@ body:
       label: Repository Organization
       description: "The org to create the repository in"
       placeholder: "my-org"
+      value: A1EBD7CC0EB3
   - type: input
     id: repo
     attributes:
       label: Repository Name
       description: "The repository to create and grant team permissions on"
       placeholder: "my-repo"
+      value: js-template
   - type: input
     id: repo-template-org
     attributes:
       label: Repository Template Organization
       description: "The org of the template to create the repo from"
       placeholder: "my-org"
+      value: A1EBD7CC0EB3
   - type: input
     id: repo-template-repo
     attributes:
       label: Repository Template Repository
       description: "The template to create the repo from"
       placeholder: "my-repo-template"
+      value: my-js-repo
   - type: input
     id: admin-groups
     attributes:
