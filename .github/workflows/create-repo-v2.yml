@@ -1,0 +1,113 @@
+name: Create repo (v2)
+on:
+  issue:
+    types:
+      - opened
+jobs:
+  AddGroups:
+    runs-on: ubuntu-latest
+    if: contains(github.event.issue.labels.*.name, 'repo-creation-v2')
+    jobs:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # Extract info from issue template
+      ## Outputs
+      # org
+      # repo
+      # repo-template-org
+      # repo-template-repo
+      # admin-groups
+      # maintain-groups
+      # write-groups
+      # triage-groups
+      # read-groups
+      - uses: stefanbuck/github-issue-parser@v3
+        id: issue-parser
+        with:
+          template-path: .github/ISSUE_TEMPLATE/create-repo.yaml
+
+      ## Comment taht we are starting process
+      - name: Update issue with running state
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const body = `:hourglass_flowing_sand: Starting Repo creation process. [View workflow run for details](${context.payload.repository.html_url}/actions/runs/${context.runId})`
+
+            await github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body
+            })
+
+      ###
+      - name: Create Repo
+        uses: jcantosz/create-repo-action@main
+        with:
+          # GitHub App Auth
+          app_id: ${{ secrets.APP_ID }}
+          app_private_key: ${{ secrets.APP_PRIVATE_KEY }}
+          app_installation_id: ${{ secrets.APP_INSTALLATION_ID }}
+          # The org to create the repo in
+          org: ${{ steps.issue-parser.outputs.issueparser_org }}
+          # The repo name to create
+          repo: ${{ steps.issue-parser.outputs.issueparser_repo }}
+          # Repo description
+          description: "Repo created from ${{ github.server_url }}/${{ github.repository }}/issues/${{ github.event.issue.number }}"
+          # Repo visibility
+          visibility: private
+          # Org of the repo template to use
+          repo_template_org: ${{ steps.issue-parser.outputs.issueparser_repo-template-org }}
+          # Repo name of the repo template to use
+          repo_template_repo: ${{ steps.issue-parser.outputs.issueparser_repo-template-repo }}
+          # Include all branches from the template?
+          include_all_branches: true
+      
+      ###
+      - name: Add teams to repo
+        uses: jcantosz/add-teams-to-repo-action@main
+        with:
+          # GitHub App Auth
+          app_id: ${{ secrets.APP_ID }}
+          app_private_key: ${{ secrets.APP_PRIVATE_KEY }}
+          app_installation_id: ${{ secrets.APP_INSTALLATION_ID }}
+          # The org to create the repo in
+          org: ${{ steps.issue-parser.outputs.issueparser_org }}
+          # The repo name to create
+          repo: ${{ steps.issue-parser.outputs.issueparser_repo }}
+          # Input groups. Expected form is a string formatted like this: "<GitHub_Team_1_Name>:<Entra_Group_1_ID>,<GGitHub_Team_2_Name>:<Entra_Group_2_ID>..."
+          admin_groups: ${{steps.issue-parser.outputs.issueparser_admin-groups}}
+          # Input groups. Functionality is identical to "admin_groups", either or both can be set
+          maintain_groups: ${{steps.issue-parser.outputs.issueparser_maintain-groups}}
+          # Input groups. Functionality is identical to "admin_groups", either or both can be set
+          write_groups: ${{steps.issue-parser.outputs.issueparser_write-groups}}
+          # Input groups. Functionality is identical to "admin_groups", either or both can be set
+          triage_groups: ${{steps.issue-parser.outputs.issueparser_triage-groups}}
+          # Input groups. Functionality is identical to "admin_groups", either or both can be set
+          read_groups: ${{steps.issue-parser.outputs.issueparser_read-groups}}
+
+      - if: ${{ failure() }}
+        name: Report failed repo creation
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const body = `:no_entry: **Repo creation failed.** [View workflow run for details](${context.payload.repository.html_url}/actions/runs/${context.runId})`
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body
+            })
+
+      - name: Report successful repo creation
+        uses: actions/github-script@v6
+        if: ${{ success() }}
+        script: |
+          const body = `:white_check_mark: **Repo created successfully!** [View workflow run for details](${context.payload.repository.html_url}/actions/runs/${context.runId})`
+          github.rest.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body
+          })
