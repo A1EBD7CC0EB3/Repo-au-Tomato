@@ -78,15 +78,15 @@ jobs:
           # The repo name to create
           repo: ${{ steps.issue-parser.outputs.issueparser_repo }}
           # Input groups. Expected form is a string formatted like this: "<GitHub_Team_1_Name>:<Entra_Group_1_ID>,<GGitHub_Team_2_Name>:<Entra_Group_2_ID>..."
-          admin_groups: ${{steps.issue-parser.outputs.issueparser_admin-groups}}
+          admin_teams: ${{steps.issue-parser.outputs.issueparser_admin-groups}}
           # Input groups. Functionality is identical to "admin_groups", either or both can be set
-          maintain_groups: ${{steps.issue-parser.outputs.issueparser_maintain-groups}}
+          maintain_teams: ${{steps.issue-parser.outputs.issueparser_maintain-groups}}
           # Input groups. Functionality is identical to "admin_groups", either or both can be set
-          write_groups: ${{steps.issue-parser.outputs.issueparser_write-groups}}
+          write_teams: ${{steps.issue-parser.outputs.issueparser_write-groups}}
           # Input groups. Functionality is identical to "admin_groups", either or both can be set
-          triage_groups: ${{steps.issue-parser.outputs.issueparser_triage-groups}}
+          triage_teams: ${{steps.issue-parser.outputs.issueparser_triage-groups}}
           # Input groups. Functionality is identical to "admin_groups", either or both can be set
-          read_groups: ${{steps.issue-parser.outputs.issueparser_read-groups}}
+          read_teams: ${{steps.issue-parser.outputs.issueparser_read-groups}}
 
       - if: ${{ failure() }}
         name: Report failed repo creation
