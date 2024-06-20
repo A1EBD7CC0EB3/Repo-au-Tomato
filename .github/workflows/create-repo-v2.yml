@@ -26,7 +26,7 @@ jobs:
       - uses: stefanbuck/github-issue-parser@v3
         id: issue-parser
         with:
-          template-path: .github/ISSUE_TEMPLATE/create-repo.yaml
+          template-path: .github/ISSUE_TEMPLATE/repo_creation_v2.yaml
 
       ## Comment taht we are starting process
       - name: Update issue with running state
