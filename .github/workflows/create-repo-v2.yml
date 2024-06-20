@@ -1,13 +1,14 @@
 name: Create repo (v2)
 on:
-  issue:
+  issues:
     types:
       - opened
 jobs:
   AddGroups:
     runs-on: ubuntu-latest
     if: contains(github.event.issue.labels.*.name, 'repo-creation-v2')
-    jobs:
+    
+    steps:
       - name: Checkout
         uses: actions/checkout@v4
 
