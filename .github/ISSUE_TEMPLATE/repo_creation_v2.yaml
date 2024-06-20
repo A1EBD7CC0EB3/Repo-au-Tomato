@@ -16,7 +16,7 @@ body:
       label: Repository Name
       description: "The repository to create and grant team permissions on"
       placeholder: "my-repo"
-      value: js-template
+      value: my-js-repo
   - type: input
     id: repo-template-org
     attributes:
@@ -30,7 +30,7 @@ body:
       label: Repository Template Repository
       description: "The template to create the repo from"
       placeholder: "my-repo-template"
-      value: my-js-repo
+      value: js-template
   - type: input
     id: admin-groups
     attributes:
