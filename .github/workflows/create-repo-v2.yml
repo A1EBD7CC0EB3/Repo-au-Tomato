@@ -49,15 +49,15 @@ jobs:
           app_id: ${{ secrets.APP_ID }}
           app_private_key: ${{ secrets.APP_PRIVATE_KEY }}
           app_installation_id: ${{ secrets.APP_INSTALLATION_ID }}
-          admin_groups: ${{steps.issue-parser.outputs.issueparser_admin-groups}}
+          admin_teams: ${{steps.issue-parser.outputs.issueparser_admin-groups}}
           # Input groups. Functionality is identical to "admin_groups", either or both can be set
-          maintain_groups: ${{steps.issue-parser.outputs.issueparser_maintain-groups}}
+          maintain_teams: ${{steps.issue-parser.outputs.issueparser_maintain-groups}}
           # Input groups. Functionality is identical to "admin_groups", either or both can be set
-          write_groups: ${{steps.issue-parser.outputs.issueparser_write-groups}}
+          write_teams: ${{steps.issue-parser.outputs.issueparser_write-groups}}
           # Input groups. Functionality is identical to "admin_groups", either or both can be set
-          triage_groups: ${{steps.issue-parser.outputs.issueparser_triage-groups}}
+          triage_teams: ${{steps.issue-parser.outputs.issueparser_triage-groups}}
           # Input groups. Functionality is identical to "admin_groups", either or both can be set
-          read_groups: ${{steps.issue-parser.outputs.issueparser_read-groups}}
+          read_teams: ${{steps.issue-parser.outputs.issueparser_read-groups}}
       ###
       - name: Create Repo
         uses: jcantosz/create-repo-action@main
