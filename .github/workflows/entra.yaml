@@ -1,0 +1,33 @@
+name: Add groups to Entra ID app and sync app
+on:
+  push:
+  workflow_dispatch:
+  
+jobs:
+  AddGroups:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # https://github.com/marketplace/actions/azure-login
+      - name: Azure login
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      - name: Sync Groups
+        id: group-sync
+        uses: jcantosz/entra-id-app-sync-action@main
+        with:
+          # The enterprise app that is used for GitHub sync (Entra ID > Enterprise applications > GitHub App > Overview > Object ID)
+          enterprise_app_object_id: ${{ secrets.ENTERPRISE_APP_OBJECT_ID}}
+          # The app role of the enterprise app to add new groups as. (Entra ID > App registrations > GitHub App > (Manage) App Roles > 'User' role ID)
+          app_role_id: ${{ secrets.APP_ROLE_ID}}
+          # Input groups. Expected form is a string formatted like this: "<GitHub_Team_1_Name>:<Entra_Group_1_ID>,<GGitHub_Team_2_Name>:<Entra_Group_2_ID>..."
+          admin_groups: "my-group:6db19273-ed59-4ebf-b24a-386c8738a7f5"
+      - name: env
+        run: env
+      - name: outputs
+        run: echo ${{steps.group-sync.outputs.admin_idp_mappings}}
