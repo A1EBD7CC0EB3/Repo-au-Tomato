@@ -2,7 +2,10 @@ name: Add groups to Entra ID app and sync app
 on:
   push:
   workflow_dispatch:
-  
+permissions:
+  contents: read
+  id-token: write
+
 jobs:
   AddGroups:
     runs-on: ubuntu-latest
