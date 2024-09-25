@@ -1,0 +1,63 @@
+name: Create Repository (v2)
+description: Create a repository and add teams with specified permissions levels to it
+title: "[REPO]: "
+labels: ["repo-creation-v2"] # This label must be added to the issueOps repo
+body:
+  - type: input
+    id: org
+    attributes:
+      label: Repository Organization
+      description: "The org to create the repository in"
+      placeholder: "my-org"
+      value: A1EBD7CC0EB3
+  - type: input
+    id: repo
+    attributes:
+      label: Repository Name
+      description: "The repository to create and grant team permissions on"
+      placeholder: "my-repo"
+      value: my-js-repo
+  - type: input
+    id: repo-template-org
+    attributes:
+      label: Repository Template Organization
+      description: "The org of the template to create the repo from"
+      placeholder: "my-org"
+      value: A1EBD7CC0EB3
+  - type: input
+    id: repo-template-repo
+    attributes:
+      label: Repository Template Repository
+      description: "The template to create the repo from"
+      placeholder: "my-repo-template"
+      value: js-template
+  - type: input
+    id: admin-groups
+    attributes:
+      label: Admin teams
+      description: "Admin teams to be added to repo as comma-separated list: `<GitHub_Team_1_Name>,<GitHub_Team_2_Name>`"
+      placeholder: "team1, team2:"
+  - type: input
+    id: maintain-groups
+    attributes:
+      label: Maintain teams
+      description: "Maintain teams to be added to repo as comma-separated list: `<GitHub_Team_1_Name>,<GitHub_Team_2_Name>`"      
+      placeholder: "team1, team2"
+  - type: input
+    id: write-groups
+    attributes:
+      label: Write teams
+      description: "Write teams to be added to repo as comma-separated list: `<GitHub_Team_1_Name>,<GitHub_Team_2_Name>`"      
+      placeholder: "team1, team2"
+  - type: input
+    id: triage-groups
+    attributes:
+      label: Triage teams
+      description: "Triage teams to be added to repo as comma-separated list: `<GitHub_Team_1_Name>,<GitHub_Team_2_Name>`"      
+      placeholder: "team1, team2"
+  - type: input
+    id: read-groups
+    attributes:
+      label: Read teams
+      description: "Read teams to be added to repo as comma-separated list: `<GitHub_Team_1_Name>,<GitHub_Team_2_Name>`"      
+      placeholder: "team1, team2"
