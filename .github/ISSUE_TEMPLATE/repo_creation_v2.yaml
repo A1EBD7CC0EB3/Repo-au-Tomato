@@ -1,7 +1,7 @@
-name: Create Repository (v2)
+name: Create Repository (vX)
 description: Create a repository and add teams with specified permissions levels to it
 title: "[REPO]: "
-labels: ["repo-creation-v2"] # This label must be added to the issueOps repo
+labels: ["repo-creation-vX"] # This label must be added to the issueOps repo
 body:
   - type: input
     id: org
